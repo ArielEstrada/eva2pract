@@ -1,0 +1,1617 @@
+Microsoft Windows [Versión 10.0.17134.648]
+(c) 2018 Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\Ariel>mysqlsh
+MySQL Shell 8.0.15
+
+Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+
+ MySQL  SQL > \connect --mc root@localhos
+Creating a Classic session to 'root@localhos'
+Please provide the password for 'root@localhos': **
+MySQL Error 2005 (HY000): Unknown MySQL server host 'localhos' (2)
+
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 30
+Server version: 8.0.15 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3306 ssl  SQL > use sakila
+Default schema set to `sakila`.
+Fetching table and column names from `sakila` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3306 ssl  sakila  SQL > show tables;
++----------------------------+
+| Tables_in_sakila           |
++----------------------------+
+| actor                      |
+| actor_info                 |
+| address                    |
+| category                   |
+| city                       |
+| country                    |
+| customer                   |
+| customer_list              |
+| film                       |
+| film_actor                 |
+| film_category              |
+| film_list                  |
+| film_text                  |
+| inventory                  |
+| language                   |
+| nicer_but_slower_film_list |
+| payment                    |
+| rental                     |
+| sales_by_film_category     |
+| sales_by_store             |
+| staff                      |
+| staff_list                 |
+| store                      |
++----------------------------+
+23 rows in set (0.0017 sec)
+
+ MySQL  localhost:3306 ssl  sakila  SQL > desc actor;
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type                 | Null | Key | Default           | Extra                                         |
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint(5) unsigned | NO   | PRI | NULL              | auto_increment                                |
+| first_name  | varchar(45)          | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)          | NO   | MUL | NULL              |                                               |
+| last_update | timestamp            | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+4 rows in set (0.0018 sec)
+
+ MySQL  localhost:3306 ssl  sakila  SQL > desc film;
++----------------------+---------------------------------------------------------------------+------+-----+-------------------+-----------------------------------------------+
+| Field                | Type                                                                | Null | Key | Default           | Extra                                         |
++----------------------+---------------------------------------------------------------------+------+-----+-------------------+-----------------------------------------------+
+| film_id              | smallint(5) unsigned                                                | NO   | PRI | NULL              | auto_increment                                |
+| title                | varchar(255)                                                        | NO   | MUL | NULL              |                                               |
+| description          | text                                                                | YES  |     | NULL              |                                               |
+| release_year         | year(4)                                                             | YES  |     | NULL              |                                               |
+| language_id          | tinyint(3) unsigned                                                 | NO   | MUL | NULL              |                                               |
+| original_language_id | tinyint(3) unsigned                                                 | YES  | MUL | NULL              |                                               |
+| rental_duration      | tinyint(3) unsigned                                                 | NO   |     | 3                 |                                               |
+| rental_rate          | decimal(4,2)                                                        | NO   |     | 4.99              |                                               |
+| length               | smallint(5) unsigned                                                | YES  |     | NULL              |                                               |
+| replacement_cost     | decimal(5,2)                                                        | NO   |     | 19.99             |                                               |
+| rating               | enum('G','PG','PG-13','R','NC-17')                                  | YES  |     | G                 |                                               |
+| special_features     | set('Trailers','Commentaries','Deleted Scenes','Behind the Scenes') | YES  |     | NULL              |                                               |
+| last_update          | timestamp                                                           | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++----------------------+---------------------------------------------------------------------+------+-----+-------------------+-----------------------------------------------+
+13 rows in set (0.0021 sec)
+
+ MySQL  localhost:3306 ssl  sakila  SQL > desc film_actor;
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type                 | Null | Key | Default           | Extra                                         |
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint(5) unsigned | NO   | PRI | NULL              |                                               |
+| film_id     | smallint(5) unsigned | NO   | PRI | NULL              |                                               |
+| last_update | timestamp            | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+3 rows in set (0.0015 sec)
+
+ MySQL  localhost:3306 ssl  sakila  SQL > select a.first_name, a.last_name, c.title from actor a
+                                       -> inner join film_actor b on
+                                       -> b.actor_id = a.actor_id
+                                       -> inner join film c on
+                                       -> c.film_id = b.film_id;
+Microsoft Windows [Versión 10.0.17134.648]
+(c) 2018 Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\Ariel>mysqlsh
+MySQL Shell 8.0.15
+
+Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 31
+Server version: 8.0.15 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3306 ssl  SQL > select a.first_name, a.last_name, c.title from actor a
+                               ->                                        -> inner join film_actor b on
+                               ->                                        -> b.actor_id = a.actor_id
+                               ->                                        -> inner join film c on
+                               -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> inner join film_actor b on
+                                       -> b.actor_' at line 2
+
+ MySQL  localhost:3306 ssl  SQL > use sakila
+Default schema set to `sakila`.
+Fetching table and column names from `sakila` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3306 ssl  sakila  SQL > select a.first_name, a.last_name, count(b.film_id) as numero_pelis from actor a
+                                       -> inner join film_actor on
+                                       -> a.actor_id = b.actor_id group by actor_id;
+ERROR: 1054 (42S22): Unknown column 'b.film_id' in 'field list'
+
+ MySQL  localhost:3306 ssl  sakila  SQL > desc film_actor;
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type                 | Null | Key | Default           | Extra                                         |
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint(5) unsigned | NO   | PRI | NULL              |                                               |
+| film_id     | smallint(5) unsigned | NO   | PRI | NULL              |                                               |
+| last_update | timestamp            | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+3 rows in set (0.0017 sec)
+
+ MySQL  localhost:3306 ssl  sakila  SQL > select a.first_name, a.last_name, count(b.film_id) as numero_pelis from actor a inner join film_actor b on a.actor_id = b.actor_id group by actor_id;
+ERROR: 1052 (23000): Column 'actor_id' in group statement is ambiguous
+
+ MySQL  localhost:3306 ssl  sakila  SQL > select a.first_name, a.last_name, count(b.film_id) as numero_pelis from actor a inner join film_actor b on a.actor_id = b.actor_id group by a.actor_id;
++-------------+--------------+--------------+
+| first_name  | last_name    | numero_pelis |
++-------------+--------------+--------------+
+| PENELOPE    | GUINESS      |           19 |
+| NICK        | WAHLBERG     |           25 |
+| ED          | CHASE        |           22 |
+| JENNIFER    | DAVIS        |           22 |
+| JOHNNY      | LOLLOBRIGIDA |           29 |
+| BETTE       | NICHOLSON    |           20 |
+| GRACE       | MOSTEL       |           30 |
+| MATTHEW     | JOHANSSON    |           20 |
+| JOE         | SWANK        |           25 |
+| CHRISTIAN   | GABLE        |           22 |
+| ZERO        | CAGE         |           25 |
+| KARL        | BERRY        |           31 |
+| UMA         | WOOD         |           35 |
+| VIVIEN      | BERGEN       |           30 |
+| CUBA        | OLIVIER      |           28 |
+| FRED        | COSTNER      |           27 |
+| HELEN       | VOIGHT       |           32 |
+| DAN         | TORN         |           22 |
+| BOB         | FAWCETT      |           25 |
+| LUCILLE     | TRACY        |           30 |
+| KIRSTEN     | PALTROW      |           27 |
+| ELVIS       | MARX         |           26 |
+| SANDRA      | KILMER       |           37 |
+| CAMERON     | STREEP       |           24 |
+| KEVIN       | BLOOM        |           21 |
+| RIP         | CRAWFORD     |           33 |
+| JULIA       | MCQUEEN      |           33 |
+| WOODY       | HOFFMAN      |           31 |
+| ALEC        | WAYNE        |           29 |
+| SANDRA      | PECK         |           19 |
+| SISSY       | SOBIESKI     |           18 |
+| TIM         | HACKMAN      |           23 |
+| MILLA       | PECK         |           24 |
+| AUDREY      | OLIVIER      |           25 |
+| JUDY        | DEAN         |           15 |
+| BURT        | DUKAKIS      |           29 |
+| VAL         | BOLGER       |           35 |
+| TOM         | MCKELLEN     |           25 |
+| GOLDIE      | BRODY        |           28 |
+| JOHNNY      | CAGE         |           29 |
+| JODIE       | DEGENERES    |           29 |
+| TOM         | MIRANDA      |           27 |
+| KIRK        | JOVOVICH     |           26 |
+| NICK        | STALLONE     |           30 |
+| REESE       | KILMER       |           32 |
+| PARKER      | GOLDBERG     |           24 |
+| JULIA       | BARRYMORE    |           24 |
+| FRANCES     | DAY-LEWIS    |           26 |
+| ANNE        | CRONYN       |           27 |
+| NATALIE     | HOPKINS      |           32 |
+| GARY        | PHOENIX      |           25 |
+| CARMEN      | HUNT         |           26 |
+| MENA        | TEMPLE       |           30 |
+| PENELOPE    | PINKETT      |           25 |
+| FAY         | KILMER       |           20 |
+| DAN         | HARRIS       |           28 |
+| JUDE        | CRUISE       |           30 |
+| CHRISTIAN   | AKROYD       |           32 |
+| DUSTIN      | TAUTOU       |           27 |
+| HENRY       | BERRY        |           35 |
+| CHRISTIAN   | NEESON       |           25 |
+| JAYNE       | NEESON       |           29 |
+| CAMERON     | WRAY         |           19 |
+| RAY         | JOHANSSON    |           30 |
+| ANGELA      | HUDSON       |           34 |
+| MARY        | TANDY        |           31 |
+| JESSICA     | BAILEY       |           23 |
+| RIP         | WINSLET      |           30 |
+| KENNETH     | PALTROW      |           21 |
+| MICHELLE    | MCCONAUGHEY  |           23 |
+| ADAM        | GRANT        |           18 |
+| SEAN        | WILLIAMS     |           26 |
+| GARY        | PENN         |           26 |
+| MILLA       | KEITEL       |           28 |
+| BURT        | POSEY        |           24 |
+| ANGELINA    | ASTAIRE      |           31 |
+| CARY        | MCCONAUGHEY  |           24 |
+| GROUCHO     | SINATRA      |           26 |
+| MAE         | HOFFMAN      |           28 |
+| RALPH       | CRUZ         |           28 |
+| SCARLETT    | DAMON        |           36 |
+| WOODY       | JOLIE        |           31 |
+| BEN         | WILLIS       |           33 |
+| JAMES       | PITT         |           31 |
+| MINNIE      | ZELLWEGER    |           31 |
+| GREG        | CHAPLIN      |           27 |
+| SPENCER     | PECK         |           21 |
+| KENNETH     | PESCI        |           20 |
+| CHARLIZE    | DENCH        |           24 |
+| SEAN        | GUINESS      |           33 |
+| CHRISTOPHER | BERRY        |           20 |
+| KIRSTEN     | AKROYD       |           34 |
+| ELLEN       | PRESLEY      |           25 |
+| KENNETH     | TORN         |           33 |
+| DARYL       | WAHLBERG     |           31 |
+| GENE        | WILLIS       |           23 |
+| MEG         | HAWKE        |           27 |
+| CHRIS       | BRIDGES      |           27 |
+| JIM         | MOSTEL       |           26 |
+| SPENCER     | DEPP         |           24 |
+| SUSAN       | DAVIS        |           33 |
+| WALTER      | TORN         |           41 |
+| MATTHEW     | LEIGH        |           30 |
+| PENELOPE    | CRONYN       |           31 |
+| SIDNEY      | CROWE        |           34 |
+| GROUCHO     | DUNST        |           35 |
+| GINA        | DEGENERES    |           42 |
+| WARREN      | NOLTE        |           34 |
+| SYLVESTER   | DERN         |           22 |
+| SUSAN       | DAVIS        |           21 |
+| CAMERON     | ZELLWEGER    |           33 |
+| RUSSELL     | BACALL       |           25 |
+| MORGAN      | HOPKINS      |           27 |
+| MORGAN      | MCDORMAND    |           25 |
+| HARRISON    | BALE         |           28 |
+| DAN         | STREEP       |           24 |
+| RENEE       | TRACY        |           33 |
+| CUBA        | ALLEN        |           25 |
+| WARREN      | JACKMAN      |           32 |
+| PENELOPE    | MONROE       |           27 |
+| LIZA        | BERGMAN      |           25 |
+| SALMA       | NOLTE        |           25 |
+| JULIANNE    | DENCH        |           32 |
+| SCARLETT    | BENING       |           26 |
+| ALBERT      | NOLTE        |           31 |
+| FRANCES     | TOMEI        |           23 |
+| KEVIN       | GARLAND      |           33 |
+| CATE        | MCQUEEN      |           30 |
+| DARYL       | CRAWFORD     |           30 |
+| GRETA       | KEITEL       |           27 |
+| JANE        | JACKMAN      |           25 |
+| ADAM        | HOPPER       |           22 |
+| RICHARD     | PENN         |           30 |
+| GENE        | HOPKINS      |           22 |
+| RITA        | REYNOLDS     |           20 |
+| ED          | MANSFIELD    |           32 |
+| MORGAN      | WILLIAMS     |           27 |
+| LUCILLE     | DEE          |           24 |
+| EWAN        | GOODING      |           33 |
+| WHOOPI      | HURT         |           32 |
+| CATE        | HARRIS       |           28 |
+| JADA        | RYDER        |           31 |
+| RIVER       | DEAN         |           31 |
+| ANGELA      | WITHERSPOON  |           35 |
+| KIM         | ALLEN        |           28 |
+| ALBERT      | JOHANSSON    |           33 |
+| FAY         | WINSLET      |           31 |
+| EMILY       | DEE          |           14 |
+| RUSSELL     | TEMPLE       |           31 |
+| JAYNE       | NOLTE        |           34 |
+| GEOFFREY    | HESTON       |           26 |
+| BEN         | HARRIS       |           23 |
+| MINNIE      | KILMER       |           20 |
+| MERYL       | GIBSON       |           28 |
+| IAN         | TANDY        |           31 |
+| FAY         | WOOD         |           22 |
+| GRETA       | MALDEN       |           32 |
+| VIVIEN      | BASINGER     |           35 |
+| LAURA       | BRODY        |           26 |
+| CHRIS       | DEPP         |           20 |
+| HARVEY      | HOPE         |           32 |
+| OPRAH       | KILMER       |           25 |
+| CHRISTOPHER | WEST         |           21 |
+| HUMPHREY    | WILLIS       |           26 |
+| AL          | GARLAND      |           26 |
+| NICK        | DEGENERES    |           22 |
+| LAURENCE    | BULLOCK      |           26 |
+| WILL        | WILSON       |           31 |
+| KENNETH     | HOFFMAN      |           29 |
+| MENA        | HOPPER       |           24 |
+| OLYMPIA     | PFEIFFER     |           28 |
+| GROUCHO     | WILLIAMS     |           25 |
+| ALAN        | DREYFUSS     |           27 |
+| MICHAEL     | BENING       |           24 |
+| WILLIAM     | HACKMAN      |           27 |
+| JON         | CHASE        |           29 |
+| GENE        | MCKELLEN     |           27 |
+| LISA        | MONROE       |           23 |
+| ED          | GUINESS      |           29 |
+| JEFF        | SILVERSTONE  |           25 |
+| MATTHEW     | CARREY       |           39 |
+| DEBBIE      | AKROYD       |           24 |
+| RUSSELL     | CLOSE        |           19 |
+| HUMPHREY    | GARLAND      |           29 |
+| MICHAEL     | BOLGER       |           30 |
+| JULIA       | ZELLWEGER    |           16 |
+| RENEE       | BALL         |           33 |
+| ROCK        | DUKAKIS      |           30 |
+| CUBA        | BIRCH        |           24 |
+| AUDREY      | BAILEY       |           27 |
+| GREGORY     | GOODING      |           30 |
+| JOHN        | SUVARI       |           29 |
+| BURT        | TEMPLE       |           23 |
+| MERYL       | ALLEN        |           22 |
+| JAYNE       | SILVERSTONE  |           27 |
+| BELA        | WALKEN       |           30 |
+| REESE       | WEST         |           33 |
+| MARY        | KEITEL       |           40 |
+| JULIA       | FAWCETT      |           15 |
+| THORA       | TEMPLE       |           20 |
++-------------+--------------+--------------+
+200 rows in set (0.0566 sec)
+
+ MySQL  localhost:3306 ssl  sakila  SQL >
+Microsoft Windows [Versión 10.0.17134.648]
+(c) 2018 Microsoft Corporation. Todos los derechos reservados.
+
+C:\Users\Ariel>mysqlsh
+MySQL Shell 8.0.15
+
+Copyright (c) 2016, 2019, Oracle and/or its affiliates. All rights reserved.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 31
+Server version: 8.0.15 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3306 ssl  SQL > select a.first_name, a.last_name, c.title from actor a
+                               ->                                        -> inner join film_actor b on
+                               ->                                        -> b.actor_id = a.actor_id
+                               ->                                        -> inner join film c on
+                               -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> inner join film_actor b on
+                                       -> b.actor_' at line 2
+
+ MySQL  localhost:3306 ssl  SQL > use sakila
+Default schema set to `sakila`.
+Fetching table and column names from `sakila` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3306 ssl  sakila  SQL > select a.first_name, a.last_name, count(b.film_id) as numero_pelis from actor a
+                                       -> inner join film_actor on
+                                       -> a.actor_id = b.actor_id group by actor_id;
+ERROR: 1054 (42S22): Unknown column 'b.film_id' in 'field list'
+
+ MySQL  localhost:3306 ssl  sakila  SQL > desc film_actor;
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type                 | Null | Key | Default           | Extra                                         |
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint(5) unsigned | NO   | PRI | NULL              |                                               |
+| film_id     | smallint(5) unsigned | NO   | PRI | NULL              |                                               |
+| last_update | timestamp            | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+----------------------+------+-----+-------------------+-----------------------------------------------+
+3 rows in set (0.0017 sec)
+
+ MySQL  localhost:3306 ssl  sakila  SQL > select a.first_name, a.last_name, count(b.film_id) as numero_pelis from actor a inner join film_actor b on a.actor_id = b.actor_id group by actor_id;
+ERROR: 1052 (23000): Column 'actor_id' in group statement is ambiguous
+
+ MySQL  localhost:3306 ssl  sakila  SQL > select a.first_name, a.last_name, count(b.film_id) as numero_pelis from actor a inner join film_actor b on a.actor_id = b.actor_id group by a.actor_id;
++-------------+--------------+--------------+
+| first_name  | last_name    | numero_pelis |
++-------------+--------------+--------------+
+| PENELOPE    | GUINESS      |           19 |
+| NICK        | WAHLBERG     |           25 |
+| ED          | CHASE        |           22 |
+| JENNIFER    | DAVIS        |           22 |
+| JOHNNY      | LOLLOBRIGIDA |           29 |
+| BETTE       | NICHOLSON    |           20 |
+| GRACE       | MOSTEL       |           30 |
+| MATTHEW     | JOHANSSON    |           20 |
+| JOE         | SWANK        |           25 |
+| CHRISTIAN   | GABLE        |           22 |
+| ZERO        | CAGE         |           25 |
+| KARL        | BERRY        |           31 |
+| UMA         | WOOD         |           35 |
+| VIVIEN      | BERGEN       |           30 |
+| CUBA        | OLIVIER      |           28 |
+| FRED        | COSTNER      |           27 |
+| HELEN       | VOIGHT       |           32 |
+| DAN         | TORN         |           22 |
+| BOB         | FAWCETT      |           25 |
+| LUCILLE     | TRACY        |           30 |
+| KIRSTEN     | PALTROW      |           27 |
+| ELVIS       | MARX         |           26 |
+| SANDRA      | KILMER       |           37 |
+| CAMERON     | STREEP       |           24 |
+| KEVIN       | BLOOM        |           21 |
+| RIP         | CRAWFORD     |           33 |
+| JULIA       | MCQUEEN      |           33 |
+| WOODY       | HOFFMAN      |           31 |
+| ALEC        | WAYNE        |           29 |
+| SANDRA      | PECK         |           19 |
+| SISSY       | SOBIESKI     |           18 |
+| TIM         | HACKMAN      |           23 |
+| MILLA       | PECK         |           24 |
+| AUDREY      | OLIVIER      |           25 |
+| JUDY        | DEAN         |           15 |
+| BURT        | DUKAKIS      |           29 |
+| VAL         | BOLGER       |           35 |
+| TOM         | MCKELLEN     |           25 |
+| GOLDIE      | BRODY        |           28 |
+| JOHNNY      | CAGE         |           29 |
+| JODIE       | DEGENERES    |           29 |
+| TOM         | MIRANDA      |           27 |
+| KIRK        | JOVOVICH     |           26 |
+| NICK        | STALLONE     |           30 |
+| REESE       | KILMER       |           32 |
+| PARKER      | GOLDBERG     |           24 |
+| JULIA       | BARRYMORE    |           24 |
+| FRANCES     | DAY-LEWIS    |           26 |
+| ANNE        | CRONYN       |           27 |
+| NATALIE     | HOPKINS      |           32 |
+| GARY        | PHOENIX      |           25 |
+| CARMEN      | HUNT         |           26 |
+| MENA        | TEMPLE       |           30 |
+| PENELOPE    | PINKETT      |           25 |
+| FAY         | KILMER       |           20 |
+| DAN         | HARRIS       |           28 |
+| JUDE        | CRUISE       |           30 |
+| CHRISTIAN   | AKROYD       |           32 |
+| DUSTIN      | TAUTOU       |           27 |
+| HENRY       | BERRY        |           35 |
+| CHRISTIAN   | NEESON       |           25 |
+| JAYNE       | NEESON       |           29 |
+| CAMERON     | WRAY         |           19 |
+| RAY         | JOHANSSON    |           30 |
+| ANGELA      | HUDSON       |           34 |
+| MARY        | TANDY        |           31 |
+| JESSICA     | BAILEY       |           23 |
+| RIP         | WINSLET      |           30 |
+| KENNETH     | PALTROW      |           21 |
+| MICHELLE    | MCCONAUGHEY  |           23 |
+| ADAM        | GRANT        |           18 |
+| SEAN        | WILLIAMS     |           26 |
+| GARY        | PENN         |           26 |
+| MILLA       | KEITEL       |           28 |
+| BURT        | POSEY        |           24 |
+| ANGELINA    | ASTAIRE      |           31 |
+| CARY        | MCCONAUGHEY  |           24 |
+| GROUCHO     | SINATRA      |           26 |
+| MAE         | HOFFMAN      |           28 |
+| RALPH       | CRUZ         |           28 |
+| SCARLETT    | DAMON        |           36 |
+| WOODY       | JOLIE        |           31 |
+| BEN         | WILLIS       |           33 |
+| JAMES       | PITT         |           31 |
+| MINNIE      | ZELLWEGER    |           31 |
+| GREG        | CHAPLIN      |           27 |
+| SPENCER     | PECK         |           21 |
+| KENNETH     | PESCI        |           20 |
+| CHARLIZE    | DENCH        |           24 |
+| SEAN        | GUINESS      |           33 |
+| CHRISTOPHER | BERRY        |           20 |
+| KIRSTEN     | AKROYD       |           34 |
+| ELLEN       | PRESLEY      |           25 |
+| KENNETH     | TORN         |           33 |
+| DARYL       | WAHLBERG     |           31 |
+| GENE        | WILLIS       |           23 |
+| MEG         | HAWKE        |           27 |
+| CHRIS       | BRIDGES      |           27 |
+| JIM         | MOSTEL       |           26 |
+| SPENCER     | DEPP         |           24 |
+| SUSAN       | DAVIS        |           33 |
+| WALTER      | TORN         |           41 |
+| MATTHEW     | LEIGH        |           30 |
+| PENELOPE    | CRONYN       |           31 |
+| SIDNEY      | CROWE        |           34 |
+| GROUCHO     | DUNST        |           35 |
+| GINA        | DEGENERES    |           42 |
+| WARREN      | NOLTE        |           34 |
+| SYLVESTER   | DERN         |           22 |
+| SUSAN       | DAVIS        |           21 |
+| CAMERON     | ZELLWEGER    |           33 |
+| RUSSELL     | BACALL       |           25 |
+| MORGAN      | HOPKINS      |           27 |
+| MORGAN      | MCDORMAND    |           25 |
+| HARRISON    | BALE         |           28 |
+| DAN         | STREEP       |           24 |
+| RENEE       | TRACY        |           33 |
+| CUBA        | ALLEN        |           25 |
+| WARREN      | JACKMAN      |           32 |
+| PENELOPE    | MONROE       |           27 |
+| LIZA        | BERGMAN      |           25 |
+| SALMA       | NOLTE        |           25 |
+| JULIANNE    | DENCH        |           32 |
+| SCARLETT    | BENING       |           26 |
+| ALBERT      | NOLTE        |           31 |
+| FRANCES     | TOMEI        |           23 |
+| KEVIN       | GARLAND      |           33 |
+| CATE        | MCQUEEN      |           30 |
+| DARYL       | CRAWFORD     |           30 |
+| GRETA       | KEITEL       |           27 |
+| JANE        | JACKMAN      |           25 |
+| ADAM        | HOPPER       |           22 |
+| RICHARD     | PENN         |           30 |
+| GENE        | HOPKINS      |           22 |
+| RITA        | REYNOLDS     |           20 |
+| ED          | MANSFIELD    |           32 |
+| MORGAN      | WILLIAMS     |           27 |
+| LUCILLE     | DEE          |           24 |
+| EWAN        | GOODING      |           33 |
+| WHOOPI      | HURT         |           32 |
+| CATE        | HARRIS       |           28 |
+| JADA        | RYDER        |           31 |
+| RIVER       | DEAN         |           31 |
+| ANGELA      | WITHERSPOON  |           35 |
+| KIM         | ALLEN        |           28 |
+| ALBERT      | JOHANSSON    |           33 |
+| FAY         | WINSLET      |           31 |
+| EMILY       | DEE          |           14 |
+| RUSSELL     | TEMPLE       |           31 |
+| JAYNE       | NOLTE        |           34 |
+| GEOFFREY    | HESTON       |           26 |
+| BEN         | HARRIS       |           23 |
+| MINNIE      | KILMER       |           20 |
+| MERYL       | GIBSON       |           28 |
+| IAN         | TANDY        |           31 |
+| FAY         | WOOD         |           22 |
+| GRETA       | MALDEN       |           32 |
+| VIVIEN      | BASINGER     |           35 |
+| LAURA       | BRODY        |           26 |
+| CHRIS       | DEPP         |           20 |
+| HARVEY      | HOPE         |           32 |
+| OPRAH       | KILMER       |           25 |
+| CHRISTOPHER | WEST         |           21 |
+| HUMPHREY    | WILLIS       |           26 |
+| AL          | GARLAND      |           26 |
+| NICK        | DEGENERES    |           22 |
+| LAURENCE    | BULLOCK      |           26 |
+| WILL        | WILSON       |           31 |
+| KENNETH     | HOFFMAN      |           29 |
+| MENA        | HOPPER       |           24 |
+| OLYMPIA     | PFEIFFER     |           28 |
+| GROUCHO     | WILLIAMS     |           25 |
+| ALAN        | DREYFUSS     |           27 |
+| MICHAEL     | BENING       |           24 |
+| WILLIAM     | HACKMAN      |           27 |
+| JON         | CHASE        |           29 |
+| GENE        | MCKELLEN     |           27 |
+| LISA        | MONROE       |           23 |
+| ED          | GUINESS      |           29 |
+| JEFF        | SILVERSTONE  |           25 |
+| MATTHEW     | CARREY       |           39 |
+| DEBBIE      | AKROYD       |           24 |
+| RUSSELL     | CLOSE        |           19 |
+| HUMPHREY    | GARLAND      |           29 |
+| MICHAEL     | BOLGER       |           30 |
+| JULIA       | ZELLWEGER    |           16 |
+| RENEE       | BALL         |           33 |
+| ROCK        | DUKAKIS      |           30 |
+| CUBA        | BIRCH        |           24 |
+| AUDREY      | BAILEY       |           27 |
+| GREGORY     | GOODING      |           30 |
+| JOHN        | SUVARI       |           29 |
+| BURT        | TEMPLE       |           23 |
+| MERYL       | ALLEN        |           22 |
+| JAYNE       | SILVERSTONE  |           27 |
+| BELA        | WALKEN       |           30 |
+| REESE       | WEST         |           33 |
+| MARY        | KEITEL       |           40 |
+| JULIA       | FAWCETT      |           15 |
+| THORA       | TEMPLE       |           20 |
++-------------+--------------+--------------+
+200 rows in set (0.0566 sec)
+
+ MySQL  localhost:3306 ssl  sakila  SQL > select a.first_name, a.last_name, count(b.film_id) as numero_pelis from actor a inner join film_actor b on a.actor_id = b.actor_id group by a.actor_id having numero_pelis > 20;
++-------------+--------------+--------------+
+| first_name  | last_name    | numero_pelis |
++-------------+--------------+--------------+
+| NICK        | WAHLBERG     |           25 |
+| ED          | CHASE        |           22 |
+| JENNIFER    | DAVIS        |           22 |
+| JOHNNY      | LOLLOBRIGIDA |           29 |
+| GRACE       | MOSTEL       |           30 |
+| JOE         | SWANK        |           25 |
+| CHRISTIAN   | GABLE        |           22 |
+| ZERO        | CAGE         |           25 |
+| KARL        | BERRY        |           31 |
+| UMA         | WOOD         |           35 |
+| VIVIEN      | BERGEN       |           30 |
+| CUBA        | OLIVIER      |           28 |
+| FRED        | COSTNER      |           27 |
+| HELEN       | VOIGHT       |           32 |
+| DAN         | TORN         |           22 |
+| BOB         | FAWCETT      |           25 |
+| LUCILLE     | TRACY        |           30 |
+| KIRSTEN     | PALTROW      |           27 |
+| ELVIS       | MARX         |           26 |
+| SANDRA      | KILMER       |           37 |
+| CAMERON     | STREEP       |           24 |
+| KEVIN       | BLOOM        |           21 |
+| RIP         | CRAWFORD     |           33 |
+| JULIA       | MCQUEEN      |           33 |
+| WOODY       | HOFFMAN      |           31 |
+| ALEC        | WAYNE        |           29 |
+| TIM         | HACKMAN      |           23 |
+| MILLA       | PECK         |           24 |
+| AUDREY      | OLIVIER      |           25 |
+| BURT        | DUKAKIS      |           29 |
+| VAL         | BOLGER       |           35 |
+| TOM         | MCKELLEN     |           25 |
+| GOLDIE      | BRODY        |           28 |
+| JOHNNY      | CAGE         |           29 |
+| JODIE       | DEGENERES    |           29 |
+| TOM         | MIRANDA      |           27 |
+| KIRK        | JOVOVICH     |           26 |
+| NICK        | STALLONE     |           30 |
+| REESE       | KILMER       |           32 |
+| PARKER      | GOLDBERG     |           24 |
+| JULIA       | BARRYMORE    |           24 |
+| FRANCES     | DAY-LEWIS    |           26 |
+| ANNE        | CRONYN       |           27 |
+| NATALIE     | HOPKINS      |           32 |
+| GARY        | PHOENIX      |           25 |
+| CARMEN      | HUNT         |           26 |
+| MENA        | TEMPLE       |           30 |
+| PENELOPE    | PINKETT      |           25 |
+| DAN         | HARRIS       |           28 |
+| JUDE        | CRUISE       |           30 |
+| CHRISTIAN   | AKROYD       |           32 |
+| DUSTIN      | TAUTOU       |           27 |
+| HENRY       | BERRY        |           35 |
+| CHRISTIAN   | NEESON       |           25 |
+| JAYNE       | NEESON       |           29 |
+| RAY         | JOHANSSON    |           30 |
+| ANGELA      | HUDSON       |           34 |
+| MARY        | TANDY        |           31 |
+| JESSICA     | BAILEY       |           23 |
+| RIP         | WINSLET      |           30 |
+| KENNETH     | PALTROW      |           21 |
+| MICHELLE    | MCCONAUGHEY  |           23 |
+| SEAN        | WILLIAMS     |           26 |
+| GARY        | PENN         |           26 |
+| MILLA       | KEITEL       |           28 |
+| BURT        | POSEY        |           24 |
+| ANGELINA    | ASTAIRE      |           31 |
+| CARY        | MCCONAUGHEY  |           24 |
+| GROUCHO     | SINATRA      |           26 |
+| MAE         | HOFFMAN      |           28 |
+| RALPH       | CRUZ         |           28 |
+| SCARLETT    | DAMON        |           36 |
+| WOODY       | JOLIE        |           31 |
+| BEN         | WILLIS       |           33 |
+| JAMES       | PITT         |           31 |
+| MINNIE      | ZELLWEGER    |           31 |
+| GREG        | CHAPLIN      |           27 |
+| SPENCER     | PECK         |           21 |
+| CHARLIZE    | DENCH        |           24 |
+| SEAN        | GUINESS      |           33 |
+| KIRSTEN     | AKROYD       |           34 |
+| ELLEN       | PRESLEY      |           25 |
+| KENNETH     | TORN         |           33 |
+| DARYL       | WAHLBERG     |           31 |
+| GENE        | WILLIS       |           23 |
+| MEG         | HAWKE        |           27 |
+| CHRIS       | BRIDGES      |           27 |
+| JIM         | MOSTEL       |           26 |
+| SPENCER     | DEPP         |           24 |
+| SUSAN       | DAVIS        |           33 |
+| WALTER      | TORN         |           41 |
+| MATTHEW     | LEIGH        |           30 |
+| PENELOPE    | CRONYN       |           31 |
+| SIDNEY      | CROWE        |           34 |
+| GROUCHO     | DUNST        |           35 |
+| GINA        | DEGENERES    |           42 |
+| WARREN      | NOLTE        |           34 |
+| SYLVESTER   | DERN         |           22 |
+| SUSAN       | DAVIS        |           21 |
+| CAMERON     | ZELLWEGER    |           33 |
+| RUSSELL     | BACALL       |           25 |
+| MORGAN      | HOPKINS      |           27 |
+| MORGAN      | MCDORMAND    |           25 |
+| HARRISON    | BALE         |           28 |
+| DAN         | STREEP       |           24 |
+| RENEE       | TRACY        |           33 |
+| CUBA        | ALLEN        |           25 |
+| WARREN      | JACKMAN      |           32 |
+| PENELOPE    | MONROE       |           27 |
+| LIZA        | BERGMAN      |           25 |
+| SALMA       | NOLTE        |           25 |
+| JULIANNE    | DENCH        |           32 |
+| SCARLETT    | BENING       |           26 |
+| ALBERT      | NOLTE        |           31 |
+| FRANCES     | TOMEI        |           23 |
+| KEVIN       | GARLAND      |           33 |
+| CATE        | MCQUEEN      |           30 |
+| DARYL       | CRAWFORD     |           30 |
+| GRETA       | KEITEL       |           27 |
+| JANE        | JACKMAN      |           25 |
+| ADAM        | HOPPER       |           22 |
+| RICHARD     | PENN         |           30 |
+| GENE        | HOPKINS      |           22 |
+| ED          | MANSFIELD    |           32 |
+| MORGAN      | WILLIAMS     |           27 |
+| LUCILLE     | DEE          |           24 |
+| EWAN        | GOODING      |           33 |
+| WHOOPI      | HURT         |           32 |
+| CATE        | HARRIS       |           28 |
+| JADA        | RYDER        |           31 |
+| RIVER       | DEAN         |           31 |
+| ANGELA      | WITHERSPOON  |           35 |
+| KIM         | ALLEN        |           28 |
+| ALBERT      | JOHANSSON    |           33 |
+| FAY         | WINSLET      |           31 |
+| RUSSELL     | TEMPLE       |           31 |
+| JAYNE       | NOLTE        |           34 |
+| GEOFFREY    | HESTON       |           26 |
+| BEN         | HARRIS       |           23 |
+| MERYL       | GIBSON       |           28 |
+| IAN         | TANDY        |           31 |
+| FAY         | WOOD         |           22 |
+| GRETA       | MALDEN       |           32 |
+| VIVIEN      | BASINGER     |           35 |
+| LAURA       | BRODY        |           26 |
+| HARVEY      | HOPE         |           32 |
+| OPRAH       | KILMER       |           25 |
+| CHRISTOPHER | WEST         |           21 |
+| HUMPHREY    | WILLIS       |           26 |
+| AL          | GARLAND      |           26 |
+| NICK        | DEGENERES    |           22 |
+| LAURENCE    | BULLOCK      |           26 |
+| WILL        | WILSON       |           31 |
+| KENNETH     | HOFFMAN      |           29 |
+| MENA        | HOPPER       |           24 |
+| OLYMPIA     | PFEIFFER     |           28 |
+| GROUCHO     | WILLIAMS     |           25 |
+| ALAN        | DREYFUSS     |           27 |
+| MICHAEL     | BENING       |           24 |
+| WILLIAM     | HACKMAN      |           27 |
+| JON         | CHASE        |           29 |
+| GENE        | MCKELLEN     |           27 |
+| LISA        | MONROE       |           23 |
+| ED          | GUINESS      |           29 |
+| JEFF        | SILVERSTONE  |           25 |
+| MATTHEW     | CARREY       |           39 |
+| DEBBIE      | AKROYD       |           24 |
+| HUMPHREY    | GARLAND      |           29 |
+| MICHAEL     | BOLGER       |           30 |
+| RENEE       | BALL         |           33 |
+| ROCK        | DUKAKIS      |           30 |
+| CUBA        | BIRCH        |           24 |
+| AUDREY      | BAILEY       |           27 |
+| GREGORY     | GOODING      |           30 |
+| JOHN        | SUVARI       |           29 |
+| BURT        | TEMPLE       |           23 |
+| MERYL       | ALLEN        |           22 |
+| JAYNE       | SILVERSTONE  |           27 |
+| BELA        | WALKEN       |           30 |
+| REESE       | WEST         |           33 |
+| MARY        | KEITEL       |           40 |
++-------------+--------------+--------------+
+181 rows in set (0.0037 sec)
+
+ MySQL  localhost:3306 ssl  sakila  SQL > select a.first_name, a.last_name, count(b.film_id) as numero_pelis from actor a inner join film_actor b on a.actor_id = b.actor_id group by a.actor_id having numero_pelis > 20 order by a.last_name, a.first_name;
++-------------+--------------+--------------+
+| first_name  | last_name    | numero_pelis |
++-------------+--------------+--------------+
+| CHRISTIAN   | AKROYD       |           32 |
+| DEBBIE      | AKROYD       |           24 |
+| KIRSTEN     | AKROYD       |           34 |
+| CUBA        | ALLEN        |           25 |
+| KIM         | ALLEN        |           28 |
+| MERYL       | ALLEN        |           22 |
+| ANGELINA    | ASTAIRE      |           31 |
+| RUSSELL     | BACALL       |           25 |
+| AUDREY      | BAILEY       |           27 |
+| JESSICA     | BAILEY       |           23 |
+| HARRISON    | BALE         |           28 |
+| RENEE       | BALL         |           33 |
+| JULIA       | BARRYMORE    |           24 |
+| VIVIEN      | BASINGER     |           35 |
+| MICHAEL     | BENING       |           24 |
+| SCARLETT    | BENING       |           26 |
+| VIVIEN      | BERGEN       |           30 |
+| LIZA        | BERGMAN      |           25 |
+| HENRY       | BERRY        |           35 |
+| KARL        | BERRY        |           31 |
+| CUBA        | BIRCH        |           24 |
+| KEVIN       | BLOOM        |           21 |
+| MICHAEL     | BOLGER       |           30 |
+| VAL         | BOLGER       |           35 |
+| CHRIS       | BRIDGES      |           27 |
+| GOLDIE      | BRODY        |           28 |
+| LAURA       | BRODY        |           26 |
+| LAURENCE    | BULLOCK      |           26 |
+| JOHNNY      | CAGE         |           29 |
+| ZERO        | CAGE         |           25 |
+| MATTHEW     | CARREY       |           39 |
+| GREG        | CHAPLIN      |           27 |
+| ED          | CHASE        |           22 |
+| JON         | CHASE        |           29 |
+| FRED        | COSTNER      |           27 |
+| DARYL       | CRAWFORD     |           30 |
+| RIP         | CRAWFORD     |           33 |
+| ANNE        | CRONYN       |           27 |
+| PENELOPE    | CRONYN       |           31 |
+| SIDNEY      | CROWE        |           34 |
+| JUDE        | CRUISE       |           30 |
+| RALPH       | CRUZ         |           28 |
+| SCARLETT    | DAMON        |           36 |
+| JENNIFER    | DAVIS        |           22 |
+| SUSAN       | DAVIS        |           21 |
+| SUSAN       | DAVIS        |           33 |
+| FRANCES     | DAY-LEWIS    |           26 |
+| RIVER       | DEAN         |           31 |
+| LUCILLE     | DEE          |           24 |
+| GINA        | DEGENERES    |           42 |
+| JODIE       | DEGENERES    |           29 |
+| NICK        | DEGENERES    |           22 |
+| CHARLIZE    | DENCH        |           24 |
+| JULIANNE    | DENCH        |           32 |
+| SPENCER     | DEPP         |           24 |
+| SYLVESTER   | DERN         |           22 |
+| ALAN        | DREYFUSS     |           27 |
+| BURT        | DUKAKIS      |           29 |
+| ROCK        | DUKAKIS      |           30 |
+| GROUCHO     | DUNST        |           35 |
+| BOB         | FAWCETT      |           25 |
+| CHRISTIAN   | GABLE        |           22 |
+| AL          | GARLAND      |           26 |
+| HUMPHREY    | GARLAND      |           29 |
+| KEVIN       | GARLAND      |           33 |
+| MERYL       | GIBSON       |           28 |
+| PARKER      | GOLDBERG     |           24 |
+| EWAN        | GOODING      |           33 |
+| GREGORY     | GOODING      |           30 |
+| ED          | GUINESS      |           29 |
+| SEAN        | GUINESS      |           33 |
+| TIM         | HACKMAN      |           23 |
+| WILLIAM     | HACKMAN      |           27 |
+| BEN         | HARRIS       |           23 |
+| CATE        | HARRIS       |           28 |
+| DAN         | HARRIS       |           28 |
+| MEG         | HAWKE        |           27 |
+| GEOFFREY    | HESTON       |           26 |
+| KENNETH     | HOFFMAN      |           29 |
+| MAE         | HOFFMAN      |           28 |
+| WOODY       | HOFFMAN      |           31 |
+| HARVEY      | HOPE         |           32 |
+| GENE        | HOPKINS      |           22 |
+| MORGAN      | HOPKINS      |           27 |
+| NATALIE     | HOPKINS      |           32 |
+| ADAM        | HOPPER       |           22 |
+| MENA        | HOPPER       |           24 |
+| ANGELA      | HUDSON       |           34 |
+| CARMEN      | HUNT         |           26 |
+| WHOOPI      | HURT         |           32 |
+| JANE        | JACKMAN      |           25 |
+| WARREN      | JACKMAN      |           32 |
+| ALBERT      | JOHANSSON    |           33 |
+| RAY         | JOHANSSON    |           30 |
+| WOODY       | JOLIE        |           31 |
+| KIRK        | JOVOVICH     |           26 |
+| GRETA       | KEITEL       |           27 |
+| MARY        | KEITEL       |           40 |
+| MILLA       | KEITEL       |           28 |
+| OPRAH       | KILMER       |           25 |
+| REESE       | KILMER       |           32 |
+| SANDRA      | KILMER       |           37 |
+| MATTHEW     | LEIGH        |           30 |
+| JOHNNY      | LOLLOBRIGIDA |           29 |
+| GRETA       | MALDEN       |           32 |
+| ED          | MANSFIELD    |           32 |
+| ELVIS       | MARX         |           26 |
+| CARY        | MCCONAUGHEY  |           24 |
+| MICHELLE    | MCCONAUGHEY  |           23 |
+| MORGAN      | MCDORMAND    |           25 |
+| GENE        | MCKELLEN     |           27 |
+| TOM         | MCKELLEN     |           25 |
+| CATE        | MCQUEEN      |           30 |
+| JULIA       | MCQUEEN      |           33 |
+| TOM         | MIRANDA      |           27 |
+| LISA        | MONROE       |           23 |
+| PENELOPE    | MONROE       |           27 |
+| GRACE       | MOSTEL       |           30 |
+| JIM         | MOSTEL       |           26 |
+| CHRISTIAN   | NEESON       |           25 |
+| JAYNE       | NEESON       |           29 |
+| ALBERT      | NOLTE        |           31 |
+| JAYNE       | NOLTE        |           34 |
+| SALMA       | NOLTE        |           25 |
+| WARREN      | NOLTE        |           34 |
+| AUDREY      | OLIVIER      |           25 |
+| CUBA        | OLIVIER      |           28 |
+| KENNETH     | PALTROW      |           21 |
+| KIRSTEN     | PALTROW      |           27 |
+| MILLA       | PECK         |           24 |
+| SPENCER     | PECK         |           21 |
+| GARY        | PENN         |           26 |
+| RICHARD     | PENN         |           30 |
+| OLYMPIA     | PFEIFFER     |           28 |
+| GARY        | PHOENIX      |           25 |
+| PENELOPE    | PINKETT      |           25 |
+| JAMES       | PITT         |           31 |
+| BURT        | POSEY        |           24 |
+| ELLEN       | PRESLEY      |           25 |
+| JADA        | RYDER        |           31 |
+| JAYNE       | SILVERSTONE  |           27 |
+| JEFF        | SILVERSTONE  |           25 |
+| GROUCHO     | SINATRA      |           26 |
+| NICK        | STALLONE     |           30 |
+| CAMERON     | STREEP       |           24 |
+| DAN         | STREEP       |           24 |
+| JOHN        | SUVARI       |           29 |
+| JOE         | SWANK        |           25 |
+| IAN         | TANDY        |           31 |
+| MARY        | TANDY        |           31 |
+| DUSTIN      | TAUTOU       |           27 |
+| BURT        | TEMPLE       |           23 |
+| MENA        | TEMPLE       |           30 |
+| RUSSELL     | TEMPLE       |           31 |
+| FRANCES     | TOMEI        |           23 |
+| DAN         | TORN         |           22 |
+| KENNETH     | TORN         |           33 |
+| WALTER      | TORN         |           41 |
+| LUCILLE     | TRACY        |           30 |
+| RENEE       | TRACY        |           33 |
+| HELEN       | VOIGHT       |           32 |
+| DARYL       | WAHLBERG     |           31 |
+| NICK        | WAHLBERG     |           25 |
+| BELA        | WALKEN       |           30 |
+| ALEC        | WAYNE        |           29 |
+| CHRISTOPHER | WEST         |           21 |
+| REESE       | WEST         |           33 |
+| GROUCHO     | WILLIAMS     |           25 |
+| MORGAN      | WILLIAMS     |           27 |
+| SEAN        | WILLIAMS     |           26 |
+| BEN         | WILLIS       |           33 |
+| GENE        | WILLIS       |           23 |
+| HUMPHREY    | WILLIS       |           26 |
+| WILL        | WILSON       |           31 |
+| FAY         | WINSLET      |           31 |
+| RIP         | WINSLET      |           30 |
+| ANGELA      | WITHERSPOON  |           35 |
+| FAY         | WOOD         |           22 |
+| UMA         | WOOD         |           35 |
+| CAMERON     | ZELLWEGER    |           33 |
+| MINNIE      | ZELLWEGER    |           31 |
++-------------+--------------+--------------+
+181 rows in set (0.0458 sec)
+
+ MySQL  localhost:3306 ssl  sakila  SQL > select a.first_name, a.last_name, count(b.customer_id) as cantidad from customer
+                                       -> left join payment b on
+                                       -> a.customer_id = b.customer_id group by a.customer_id
+                                       -> order by a.last_name, a.first_name;
+ERROR: 1054 (42S22): Unknown column 'a.first_name' in 'field list'
+
+ MySQL  localhost:3306 ssl  sakila  SQL > select a.first_name, a.last_name, count(b.customer_id) as cantidad from customer a left join payment b on a.customer_id = b.customer_id group by a.customer_id order by a.last_name, a.first_name;
++-------------+--------------+----------+
+| first_name  | last_name    | cantidad |
++-------------+--------------+----------+
+| RAFAEL      | ABNEY        |       21 |
+| NATHANIEL   | ADAM         |       28 |
+| KATHLEEN    | ADAMS        |       27 |
+| DIANA       | ALEXANDER    |       27 |
+| GORDON      | ALLARD       |       32 |
+| SHIRLEY     | ALLEN        |       31 |
+| CHARLENE    | ALVAREZ      |       27 |
+| LISA        | ANDERSON     |       24 |
+| JOSE        | ANDREW       |       25 |
+| IDA         | ANDREWS      |       23 |
+| OSCAR       | AQUINO       |       20 |
+| HARRY       | ARCE         |       35 |
+| JORDAN      | ARCHULETA    |       30 |
+| MELANIE     | ARMSTRONG    |       25 |
+| BEATRICE    | ARNOLD       |       26 |
+| KENT        | ARSENAULT    |       27 |
+| CARL        | ARTIS        |       23 |
+| DARRYL      | ASHCRAFT     |       23 |
+| TYRONE      | ASHER        |       24 |
+| ALMA        | AUSTIN       |       35 |
+| MILDRED     | BAILEY       |       25 |
+| PAMELA      | BAKER        |       23 |
+| MARTIN      | BALES        |       27 |
+| EVERETT     | BANDA        |       28 |
+| JESSIE      | BANKS        |       26 |
+| CLAYTON     | BARBEE       |       26 |
+| ANGEL       | BARCLAY      |       32 |
+| NICHOLAS    | BARFIELD     |       32 |
+| VICTOR      | BARKLEY      |       24 |
+| RACHEL      | BARNES       |       22 |
+| CAROLE      | BARNETT      |       30 |
+| TRACEY      | BARRETT      |       27 |
+| DAISY       | BATES        |       38 |
+| EDWARD      | BAUGH        |       28 |
+| ROBERT      | BAUGHMAN     |       21 |
+| JEAN        | BELL         |       27 |
+| CHESTER     | BENNER       |       24 |
+| JANE        | BENNETT      |       28 |
+| REGINA      | BERRY        |       34 |
+| CHARLIE     | BESS         |       26 |
+| MIGUEL      | BETANCOURT   |       29 |
+| HENRY       | BILLINGSLEY  |       18 |
+| AGNES       | BISHOP       |       23 |
+| VALERIE     | BLACK        |       26 |
+| DEREK       | BLAKELY      |       28 |
+| MATHEW      | BOLIN        |       22 |
+| DON         | BONE         |       25 |
+| LEON        | BOSTIC       |       25 |
+| BOBBY       | BOUDREAU     |       35 |
+| DERRICK     | BOURQUE      |       22 |
+| CLIFFORD    | BOWENS       |       29 |
+| CAROLINE    | BOWMAN       |       15 |
+| BYRON       | BOX          |       29 |
+| EMMA        | BOYD         |       23 |
+| ANA         | BRADLEY      |       34 |
+| TED         | BREAUX       |       29 |
+| VICKIE      | BREWER       |       31 |
+| RUSSELL     | BRINSON      |       36 |
+| BEVERLY     | BROOKS       |       24 |
+| CHRIS       | BROTHERS     |       22 |
+| ELIZABETH   | BROWN        |       38 |
+| GUY         | BROWNLEE     |       32 |
+| PAULA       | BRYANT       |       18 |
+| CLINTON     | BUFORD       |       25 |
+| WESLEY      | BULL         |       40 |
+| TIMOTHY     | BUNN         |       22 |
+| EDWIN       | BURK         |       23 |
+| LYDIA       | BURKE        |       24 |
+| SIDNEY      | BURLESON     |       25 |
+| APRIL       | BURNS        |       26 |
+| COLLEEN     | BURTON       |       24 |
+| LEROY       | BUSTAMANTE   |       32 |
+| LOIS        | BUTLER       |       35 |
+| ALLEN       | BUTTERFIELD  |       21 |
+| DEANNA      | BYRD         |       26 |
+| DANIEL      | CABRAL       |       20 |
+| KAY         | CALDWELL     |       20 |
+| CATHERINE   | CAMPBELL     |       34 |
+| CHAD        | CARBONE      |       25 |
+| TERRY       | CARLSON      |       29 |
+| LORETTA     | CARPENTER    |       22 |
+| EILEEN      | CARR         |       18 |
+| TONY        | CARRANZA     |       22 |
+| JUNE        | CARROLL      |       37 |
+| AMANDA      | CARTER       |       27 |
+| TIM         | CARY         |       39 |
+| ALFRED      | CASILLAS     |       26 |
+| GERTRUDE    | CASTILLO     |       34 |
+| JENNY       | CASTRO       |       27 |
+| PHILIP      | CAUSEY       |       31 |
+| KRISTINA    | CHAMBERS     |       28 |
+| VERNON      | CHAPA        |       18 |
+| TONYA       | CHAPMAN      |       32 |
+| KRISTEN     | CHAVEZ       |       18 |
+| MARIO       | CHEATHAM     |       28 |
+| PEDRO       | CHESTNUT     |       24 |
+| JOHNNIE     | CHISHOLM     |       24 |
+| RAMON       | CHOATE       |       31 |
+| NELSON      | CHRISTENSON  |       20 |
+| FERNANDO    | CHURCHILL    |       25 |
+| AUSTIN      | CINTRON      |       19 |
+| MICHELLE    | CLARK        |       35 |
+| ADRIAN      | CLARY        |       19 |
+| BERNARD     | COLBY        |       22 |
+| TRACY       | COLE         |       30 |
+| KATHRYN     | COLEMAN      |       26 |
+| TOMMY       | COLLAZO      |       38 |
+| DIANE       | COLLINS      |       35 |
+| GLORIA      | COOK         |       30 |
+| JOAN        | COOPER       |       23 |
+| ALLAN       | CORNISH      |       19 |
+| BRETT       | CORNWELL     |       34 |
+| CARLOS      | COUGHLIN     |       23 |
+| JUDITH      | COX          |       33 |
+| GARY        | COY          |       25 |
+| BOBBIE      | CRAIG        |       24 |
+| ESTHER      | CRAWFORD     |       28 |
+| MAURICE     | CRAWLEY      |       29 |
+| IVAN        | CROMWELL     |       26 |
+| ALBERT      | CROUSE       |       23 |
+| KIM         | CRUZ         |       21 |
+| THEODORE    | CULP         |       31 |
+| EUGENE      | CULPEPPER    |       19 |
+| STACY       | CUNNINGHAM   |       23 |
+| STEVEN      | CURLEY       |       29 |
+| NORMAN      | CURRIER      |       26 |
+| LEAH        | CURTIS       |       25 |
+| DANIELLE    | DANIELS      |       25 |
+| PATSY       | DAVIDSON     |       28 |
+| JENNIFER    | DAVIS        |       28 |
+| COURTNEY    | DAY          |       32 |
+| MARCIA      | DEAN         |       42 |
+| ALVIN       | DELOACH      |       29 |
+| RON         | DELUCA       |       23 |
+| WADE        | DELVALLE     |       22 |
+| HERMAN      | DEVORE       |       29 |
+| EMILY       | DIAZ         |       24 |
+| AMBER       | DIXON        |       27 |
+| MARSHA      | DOUGLAS      |       37 |
+| SEAN        | DOUGLASS     |       23 |
+| LLOYD       | DOWD         |       19 |
+| FREDDIE     | DUGGAN       |       25 |
+| SAMANTHA    | DUNCAN       |       23 |
+| ERIN        | DUNN         |       27 |
+| JEFF        | EAST         |       30 |
+| BEN         | EASTER       |       26 |
+| LEO         | EBERT        |       23 |
+| JOYCE       | EDWARDS      |       28 |
+| JIMMIE      | EGGLESTON    |       28 |
+| MELVIN      | ELLINGTON    |       26 |
+| KATIE       | ELLIOTT      |       25 |
+| GRACE       | ELLIS        |       33 |
+| JAVIER      | ELROD        |       32 |
+| JARED       | ELY          |       19 |
+| KURT        | EMMONS       |       23 |
+| TRAVIS      | ESTEP        |       25 |
+| Ariel       | Estrada      |        0 |
+| ANN         | EVANS        |       17 |
+| JOHN        | FARNSWORTH   |       31 |
+| ALEXANDER   | FENNELL      |       36 |
+| BERTHA      | FERGUSON     |       25 |
+| MELINDA     | FERNANDEZ    |       17 |
+| VICKI       | FIELDS       |       25 |
+| CINDY       | FISHER       |       29 |
+| MYRTLE      | FLEMING      |       24 |
+| MAE         | FLETCHER     |       31 |
+| JULIA       | FLORES       |       32 |
+| CRYSTAL     | FORD         |       33 |
+| MICHEAL     | FORMAN       |       26 |
+| ENRIQUE     | FORSYTHE     |       28 |
+| RAUL        | FORTIER      |       20 |
+| HOWARD      | FORTNER      |       26 |
+| PHYLLIS     | FOSTER       |       23 |
+| JACK        | FOUST        |       24 |
+| JO          | FOWLER       |       20 |
+| HOLLY       | FOX          |       31 |
+| JUAN        | FRALEY       |       23 |
+| JOEL        | FRANCISCO    |       23 |
+| BETH        | FRANKLIN     |       25 |
+| GLENDA      | FRAZIER      |       32 |
+| SHANNON     | FREEMAN      |       24 |
+| CLAUDIA     | FULLER       |       26 |
+| GERALD      | FULTZ        |       30 |
+| FELIX       | GAFFNEY      |       24 |
+| RANDY       | GAITHER      |       28 |
+| CLARENCE    | GAMEZ        |       30 |
+| FLOYD       | GANDY        |       17 |
+| JAMES       | GANNON       |       30 |
+| CAROL       | GARCIA       |       22 |
+| DAVE        | GARDINER     |       32 |
+| JOANN       | GARDNER      |       16 |
+| NELLIE      | GARRETT      |       21 |
+| PEARL       | GARZA        |       22 |
+| BILL        | GAVIN        |       28 |
+| RUBEN       | GEARY        |       21 |
+| JOY         | GEORGE       |       33 |
+| VICTORIA    | GIBSON       |       27 |
+| TANYA       | GILBERT      |       33 |
+| DUSTIN      | GILLETTE     |       26 |
+| JOE         | GILLILAND    |       29 |
+| DENNIS      | GILMAN       |       28 |
+| JOSEPHINE   | GOMEZ        |       26 |
+| NORMA       | GONZALES     |       21 |
+| MARTHA      | GONZALEZ     |       34 |
+| ADAM        | GOOCH        |       22 |
+| KENNETH     | GOODEN       |       17 |
+| LESLIE      | GORDON       |       22 |
+| DOUGLAS     | GRAF         |       25 |
+| RITA        | GRAHAM       |       24 |
+| MICHELE     | GRANT        |       30 |
+| BRANDY      | GRAVES       |       28 |
+| JUDY        | GRAY         |       25 |
+| CHRISTOPHER | GRECO        |       31 |
+| VIRGINIA    | GREEN        |       32 |
+| JEANETTE    | GREENE       |       20 |
+| SONIA       | GREGORY      |       28 |
+| ALEX        | GRESHAM      |       33 |
+| ROSS        | GREY         |       27 |
+| LILLIAN     | GRIFFIN      |       25 |
+| THOMAS      | GRIGSBY      |       25 |
+| TERRY       | GRISSOM      |       20 |
+| ARMANDO     | GRUBER       |       21 |
+| HARVEY      | GUAJARDO     |       22 |
+| ERIK        | GUILLEN      |       29 |
+| TERRENCE    | GUNDERSON    |       30 |
+| CARLA       | GUTIERREZ    |       26 |
+| RAMONA      | HALE         |       30 |
+| JESSICA     | HALL         |       34 |
+| GLADYS      | HAMILTON     |       31 |
+| SETH        | HANNON       |       25 |
+| DELORES     | HANSEN       |       21 |
+| VIOLA       | HANSON       |       32 |
+| GABRIEL     | HARDER       |       26 |
+| BRYAN       | HARDISON     |       28 |
+| BRENT       | HARKINS      |       23 |
+| ROBERTA     | HARPER       |       23 |
+| HELEN       | HARRIS       |       32 |
+| WENDY       | HARRISON     |       30 |
+| DANA        | HART         |       29 |
+| ARLENE      | HARVEY       |       26 |
+| COREY       | HAUSER       |       22 |
+| ARNOLD      | HAVENS       |       33 |
+| JILL        | HAWKINS      |       21 |
+| LEE         | HAWKS        |       27 |
+| ROBIN       | HAYES        |       24 |
+| SHAWN       | HEATON       |       33 |
+| ANDREA      | HENDERSON    |       22 |
+| ALBERTO     | HENNING      |       21 |
+| PAULINE     | HENRY        |       27 |
+| ANGELA      | HERNANDEZ    |       36 |
+| NORA        | HERRERA      |       28 |
+| TRACY       | HERRMANN     |       28 |
+| CLAUDE      | HERZOG       |       25 |
+| EDUARDO     | HIATT        |       27 |
+| MONICA      | HICKS        |       30 |
+| MARCUS      | HIDALGO      |       30 |
+| ANNA        | HILL         |       21 |
+| ZACHARY     | HITE         |       31 |
+| MATTIE      | HOFFMAN      |       22 |
+| MABEL       | HOLLAND      |       30 |
+| PHILLIP     | HOLM         |       26 |
+| LUCILLE     | HOLMES       |       28 |
+| TONI        | HOLT         |       23 |
+| HILDA       | HOPKINS      |       29 |
+| BILLIE      | HORTON       |       26 |
+| RAY         | HOULE        |       22 |
+| ROSE        | HOWARD       |       22 |
+| WILLIE      | HOWELL       |       26 |
+| MILTON      | HOWLAND      |       25 |
+| LAUREN      | HUDSON       |       20 |
+| BRANDON     | HUEY         |       37 |
+| BONNIE      | HUGHES       |       21 |
+| ELEANOR     | HUNT         |       46 |
+| CHARLOTTE   | HUNTER       |       24 |
+| JEREMY      | HURTADO      |       28 |
+| CURTIS      | IRBY         |       38 |
+| FREDERICK   | ISBELL       |       21 |
+| DANNY       | ISOM         |       21 |
+| KAREN       | JACKSON      |       27 |
+| GEORGIA     | JACOBS       |       26 |
+| KATHY       | JAMES        |       30 |
+| LOUISE      | JENKINS      |       25 |
+| NAOMI       | JENNINGS     |       35 |
+| LENA        | JENSEN       |       33 |
+| OLGA        | JIMENEZ      |       32 |
+| PATRICIA    | JOHNSON      |       27 |
+| KRISTIN     | JOHNSTON     |       31 |
+| BARBARA     | JONES        |       22 |
+| TIFFANY     | JORDAN       |       14 |
+| JERRY       | JORDON       |       29 |
+| JOSEPH      | JOY          |       30 |
+| CHRISTIAN   | JUNG         |       24 |
+| ALAN        | KAHN         |       26 |
+| ELSIE       | KELLEY       |       37 |
+| DENISE      | KELLY        |       27 |
+| RHONDA      | KENNEDY      |       39 |
+| JEROME      | KENYON       |       16 |
+| LILLIE      | KIM          |       23 |
+| REGINALD    | KINDER       |       28 |
+| MELISSA     | KING         |       34 |
+| GAIL        | KNIGHT       |       25 |
+| KELLY       | KNOTT        |       26 |
+| CHARLES     | KOWALSKI     |       32 |
+| LESTER      | KRAUS        |       16 |
+| HERBERT     | KRUGER       |       20 |
+| MISTY       | LAMBERT      |       27 |
+| JACOB       | LANCE        |       21 |
+| RENEE       | LANE         |       26 |
+| HEIDI       | LARSON       |       34 |
+| DARYL       | LARUE        |       27 |
+| LAURIE      | LAWRENCE     |       23 |
+| JEANNE      | LAWSON       |       27 |
+| LAWRENCE    | LAWTON       |       31 |
+| KIMBERLY    | LEE          |       25 |
+| LOUIS       | LEONE        |       35 |
+| SARAH       | LEWIS        |       30 |
+| GEORGE      | LINTON       |       33 |
+| MAUREEN     | LITTLE       |       21 |
+| DWIGHT      | LOMBARDI     |       17 |
+| JACQUELINE  | LONG         |       33 |
+| AMY         | LOPEZ        |       29 |
+| BARRY       | LOVELACE     |       33 |
+| PRISCILLA   | LOWE         |       35 |
+| VELMA       | LUCAS        |       27 |
+| WILLARD     | LUMPKIN      |       22 |
+| LEWIS       | LYMAN        |       19 |
+| JACKIE      | LYNCH        |       25 |
+| STEVE       | MACKENZIE    |       34 |
+| RALPH       | MADRIGAL     |       34 |
+| MATTHEW     | MAHAN        |       31 |
+| DONALD      | MAHON        |       23 |
+| CLIFTON     | MALCOLM      |       28 |
+| JOSHUA      | MARK         |       30 |
+| WILLIE      | MARKHAM      |       25 |
+| SAMUEL      | MARLOW       |       21 |
+| SHERRY      | MARSHALL     |       34 |
+| CALVIN      | MARTEL       |       23 |
+| SANDRA      | MARTIN       |       29 |
+| RUTH        | MARTINEZ     |       24 |
+| HAROLD      | MARTINO      |       32 |
+| JUANITA     | MASON        |       30 |
+| ERICA       | MATTHEWS     |       22 |
+| RICK        | MATTOX       |       27 |
+| GREGORY     | MAULDIN      |       23 |
+| GWENDOLYN   | MAY          |       25 |
+| ALFREDO     | MCADAMS      |       20 |
+| RENE        | MCALISTER    |       26 |
+| MORRIS      | MCCARTER     |       34 |
+| JESUS       | MCCARTNEY    |       24 |
+| VERA        | MCCOY        |       18 |
+| RICHARD     | MCCRARY      |       25 |
+| BRAD        | MCCURDY      |       25 |
+| EDITH       | MCDONALD     |       19 |
+| SAM         | MCDUFFIE     |       24 |
+| MIRIAM      | MCKINNEY     |       26 |
+| RAYMOND     | MCWHORTER    |       30 |
+| RICARDO     | MEADOR       |       21 |
+| DORA        | MEDINA       |       23 |
+| CORY        | MEEHAN       |       24 |
+| ANTONIO     | MEEK         |       16 |
+| CASEY       | MENA         |       34 |
+| PETER       | MENARD       |       23 |
+| MARIAN      | MENDOZA      |       23 |
+| NATALIE     | MEYER        |       23 |
+| JESSIE      | MILAM        |       33 |
+| BECKY       | MILES        |       29 |
+| SHANE       | MILLARD      |       22 |
+| MARIA       | MILLER       |       33 |
+| ALICIA      | MILLS        |       21 |
+| TOM         | MILNER       |       32 |
+| STEPHANIE   | MITCHELL     |       25 |
+| RODNEY      | MOELLER      |       23 |
+| STACEY      | MONTGOMERY   |       34 |
+| MARGARET    | MOORE        |       23 |
+| ANITA       | MORALES      |       15 |
+| STELLA      | MORENO       |       22 |
+| EVELYN      | MORGAN       |       28 |
+| CRAIG       | MORRELL      |       30 |
+| HEATHER     | MORRIS       |       30 |
+| BESSIE      | MORRISON     |       28 |
+| JASON       | MORRISSEY    |       28 |
+| BRADLEY     | MOTLEY       |       27 |
+| hola        | Mundo        |        0 |
+| CHERYL      | MURPHY       |       27 |
+| THELMA      | MURRAY       |       32 |
+| MANUEL      | MURRELL      |       30 |
+| PEGGY       | MYERS        |       24 |
+| PENNY       | NEAL         |       18 |
+| DEBRA       | NELSON       |       29 |
+| JAIME       | NETTLES      |       29 |
+| RANDALL     | NEUMANN      |       23 |
+| PATRICK     | NEWSOM       |       31 |
+| JUSTIN      | NGO          |       36 |
+| TAMARA      | NGUYEN       |       25 |
+| SUZANNE     | NICHOLS      |       24 |
+| ELMER       | NOE          |       26 |
+| JULIO       | NOLAND       |       21 |
+| CODY        | NOLEN        |       22 |
+| LEONA       | OBRIEN       |       14 |
+| MARION      | OCAMPO       |       29 |
+| ISAAC       | OGLESBY      |       29 |
+| JORGE       | OLIVARES     |       34 |
+| ELLA        | OLIVER       |       31 |
+| ANNETTE     | OLSON        |       24 |
+| DWAYNE      | OLVERA       |       22 |
+| SYLVIA      | ORTIZ        |       32 |
+| MARC        | OUTLAW       |       30 |
+| CARMEN      | OWENS        |       26 |
+| DAN         | PAINE        |       22 |
+| MEGAN       | PALMER       |       27 |
+| FRANCES     | PARKER       |       22 |
+| WANDA       | PATTERSON    |       30 |
+| LYNN        | PAYNE        |       28 |
+| IRMA        | PEARSON      |       18 |
+| LANCE       | PEMBERTON    |       22 |
+| ERIKA       | PENA         |       26 |
+| CAROLYN     | PEREZ        |       30 |
+| GERALDINE   | PERKINS      |       30 |
+| SARA        | PERRY        |       33 |
+| WALTER      | PERRYMAN     |       30 |
+| SUE         | PETERS       |       40 |
+| NICOLE      | PETERSON     |       22 |
+| BOB         | PFEIFFER     |       24 |
+| JANET       | PHILLIPS     |       27 |
+| SALLY       | PIERCE       |       32 |
+| JEFFERY     | PINSON       |       31 |
+| MAX         | PITT         |       24 |
+| HECTOR      | POINDEXTER   |       26 |
+| CARRIE      | PORTER       |       34 |
+| BILLY       | POULIN       |       35 |
+| ANNE        | POWELL       |       23 |
+| DARRELL     | POWER        |       25 |
+| KEN         | PREWITT      |       29 |
+| IRENE       | PRICE        |       23 |
+| GLENN       | PULLEN       |       23 |
+| ANDREW      | PURDY        |       27 |
+| STEPHEN     | QUALLS       |       28 |
+| TROY        | QUIGLEY      |       30 |
+| ROGER       | QUINTANILLA  |       36 |
+| VINCENT     | RALSTON      |       25 |
+| CHRISTINA   | RAMIREZ      |       18 |
+| EVA         | RAMOS        |       18 |
+| ANDRE       | RAPP         |       28 |
+| DALE        | RATCLIFF     |       27 |
+| AUDREY      | RAY          |       29 |
+| JIM         | REA          |       33 |
+| DORIS       | REED         |       22 |
+| CONSTANCE   | REID         |       25 |
+| NEIL        | RENNER       |       32 |
+| DEBBIE      | REYES        |       32 |
+| ROSA        | REYNOLDS     |       30 |
+| EDGAR       | RHOADS       |       25 |
+| SHERRI      | RHODES       |       33 |
+| JAMIE       | RICE         |       29 |
+| WILMA       | RICHARDS     |       20 |
+| ASHLEY      | RICHARDSON   |       25 |
+| RONNIE      | RICKETTS     |       25 |
+| KEITH       | RICO         |       26 |
+| BRITTANY    | RILEY        |       28 |
+| MARK        | RINEHART     |       26 |
+| KATHERINE   | RIVERA       |       14 |
+| JAY         | ROBB         |       26 |
+| ERIC        | ROBERT       |       27 |
+| CHRISTINE   | ROBERTS      |       24 |
+| JOANNE      | ROBERTSON    |       34 |
+| GREG        | ROBINS       |       30 |
+| SHARON      | ROBINSON     |       30 |
+| LAURA       | RODRIGUEZ    |       22 |
+| VIOLET      | RODRIQUEZ    |       30 |
+| TERESA      | ROGERS       |       29 |
+| MINNIE      | ROMERO       |       34 |
+| DARLENE     | ROSE         |       31 |
+| MARILYN     | ROSS         |       30 |
+| TERRANCE    | ROUSH        |       29 |
+| DAVID       | ROYAL        |       26 |
+| VIVIAN      | RUIZ         |       23 |
+| NATHAN      | RUNYON       |       32 |
+| ANNIE       | RUSSELL      |       18 |
+| TARA        | RYAN         |       20 |
+| RYAN        | SALISBURY    |       30 |
+| GENE        | SANBORN      |       27 |
+| JULIE       | SANCHEZ      |       29 |
+| TAMMY       | SANDERS      |       41 |
+| WILLIAM     | SATTERFIELD  |       26 |
+| DEAN        | SAUER        |       27 |
+| JONATHAN    | SCARBOROUGH  |       18 |
+| JESSE       | SCHILLING    |       26 |
+| ROSEMARY    | SCHMIDT      |       35 |
+| LEONARD     | SCHOFIELD    |       32 |
+| JIMMY       | SCHRADER     |       29 |
+| KEVIN       | SCHULER      |       22 |
+| ANTHONY     | SCHWAB       |       20 |
+| BRUCE       | SCHWARZ      |       23 |
+| REBECCA     | SCOTT        |       24 |
+| STANLEY     | SCROGGINS    |       30 |
+| KARL        | SEAL         |       45 |
+| AARON       | SELBY        |       24 |
+| LESLIE      | SEWARD       |       35 |
+| EARL        | SHANKS       |       27 |
+| CLARA       | SHAW         |       42 |
+| RICKY       | SHELBY       |       25 |
+| SCOTT       | SHELLEY      |       25 |
+| DIANNE      | SHELTON      |       31 |
+| WARREN      | SHERROD      |       33 |
+| FRANCIS     | SIKES        |       26 |
+| MAXINE      | SILVA        |       32 |
+| MICHAEL     | SILVERMAN    |       29 |
+| TINA        | SIMMONS      |       28 |
+| ARTHUR      | SIMPKINS     |       32 |
+| ELLEN       | SIMPSON      |       28 |
+| VANESSA     | SIMS         |       19 |
+| FRANCISCO   | SKIDMORE     |       22 |
+| GILBERT     | SLEDGE       |       28 |
+| WALLACE     | SLONE        |       25 |
+| MARY        | SMITH        |       32 |
+| MARION      | SNYDER       |       39 |
+| NINA        | SOTO         |       29 |
+| ROLAND      | SOUTH        |       23 |
+| JEFFREY     | SPEAR        |       23 |
+| CATHY       | SPENCER      |       29 |
+| KYLE        | SPURLOCK     |       30 |
+| SERGIO      | STANFIELD    |       26 |
+| ALLISON     | STANLEY      |       27 |
+| KIRK        | STCLAIR      |       19 |
+| LORRAINE    | STEPHENS     |       21 |
+| ERNEST      | STEPP        |       25 |
+| ELAINE      | STEVENS      |       24 |
+| ALICE       | STEWART      |       33 |
+| IAN         | STILL        |       27 |
+| VERONICA    | STONE        |       32 |
+| DAWN        | SULLIVAN     |       26 |
+| FELICIA     | SUTTON       |       28 |
+| PERRY       | SWAFFORD     |       24 |
+| GLEN        | TALBERT      |       26 |
+| TODD        | TAN          |       29 |
+| DOROTHY     | TAYLOR       |       25 |
+| SALVADOR    | TEEL         |       30 |
+| JENNIE      | TERRY        |       29 |
+| NANCY       | THOMAS       |       28 |
+| DONNA       | THOMPSON     |       21 |
+| MARSHALL    | THORN        |       23 |
+| LARRY       | THRASHER     |       26 |
+| LONNIE      | TIRADO       |       18 |
+| CLYDE       | TOBIAS       |       29 |
+| EDDIE       | TOMLIN       |       27 |
+| KELLY       | TORRES       |       22 |
+| PAUL        | TROUT        |       23 |
+| FRANKLIN    | TROUTMAN     |       22 |
+| WAYNE       | TRUONG       |       19 |
+| DUANE       | TUBBS        |       31 |
+| MARJORIE    | TUCKER       |       32 |
+| MARIE       | TURNER       |       26 |
+| JOHNNY      | TURPIN       |       19 |
+| ANDY        | VANHORN      |       25 |
+| CHRISTY     | VARGAS       |       31 |
+| BENJAMIN    | VARNEY       |       23 |
+| TERRI       | VASQUEZ      |       27 |
+| JULIAN      | VEST         |       28 |
+| CECIL       | VINES        |       26 |
+| ROBERTO     | VU           |       30 |
+| MARGIE      | WADE         |       36 |
+| FRANK       | WAGGONER     |       32 |
+| DOLORES     | WAGNER       |       26 |
+| HUGH        | WALDROP      |       21 |
+| DEBORAH     | WALKER       |       29 |
+| CONNIE      | WALLACE      |       23 |
+| CASSANDRA   | WALTERS      |       30 |
+| JANICE      | WARD         |       34 |
+| HAZEL       | WARREN       |       34 |
+| RUBY        | WASHINGTON   |       28 |
+| YVONNE      | WATKINS      |       21 |
+| THERESA     | WATSON       |       30 |
+| SHELLY      | WATTS        |       26 |
+| JAMIE       | WAUGH        |       25 |
+| MIKE        | WAY          |       35 |
+| YOLANDA     | WEAVER       |       27 |
+| ETHEL       | WEBB         |       32 |
+| RONALD      | WEINER       |       30 |
+| MARLENE     | WELCH        |       26 |
+| SHEILA      | WELLS        |       18 |
+| EDNA        | WEST         |       26 |
+| MITCHELL    | WESTMORELAND |       32 |
+| FRED        | WHEAT        |       25 |
+| LUCY        | WHEELER      |       26 |
+| BETTY       | WHITE        |       28 |
+| ROY         | WHITING      |       29 |
+| JON         | WILES        |       24 |
+| LINDA       | WILLIAMS     |       26 |
+| GINA        | WILLIAMSON   |       28 |
+| BERNICE     | WILLIS       |       33 |
+| SUSAN       | WILSON       |       24 |
+| DARREN      | WINDHAM      |       24 |
+| VIRGIL      | WOFFORD      |       27 |
+| LORI        | WOOD         |       31 |
+| FLORENCE    | WOODS        |       30 |
+| TYLER       | WREN         |       21 |
+| BRENDA      | WRIGHT       |       26 |
+| BRIAN       | WYMAN        |       12 |
+| LUIS        | YANEZ        |       20 |
+| MARVIN      | YEE          |       21 |
+| CYNTHIA     | YOUNG        |       32 |
++-------------+--------------+----------+
+601 rows in set (0.0114 sec)
+
+ MySQL  localhost:3306 ssl  sakila  SQL >

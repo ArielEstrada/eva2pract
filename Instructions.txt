@@ -1,0 +1,24 @@
+
+/////////////////////////////////////////////////////EVA2_10_EJERCICIOS\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+Listado de rentas por staff
+	select a.first_name, a.last_name, b.store_id from customer a inner join store b on a.store_id = b.store_id limit 200;
+	personal y total de rentas
+	renta y nombre del staff donde se realizo
+	limitar a 200
+
+Listado de clientes por tienda (verificar si es posible)
+select a.first_name, a.last_name, b.store_id from customer a inner join store b on a.store_id = b.store_id limit 200;
+
+Mostrar nombre de la pelicula y nombre de la categoria
+select a.title, b.name from film a inner join film_category c on a.film_id = c.film_id 
+inner join category b on b.category_id = c.category_id limit 200; 
+
+
+Mostrar cantidad de peliculas por categoria
+select a.name, count(b.film_id) from category a inner join film_category on a.category_id = b.category_id limit 3;
+
+Mostrar los actores con peliculas R
+
+
+Se puede con:
+(inner - left) join...
